@@ -4,12 +4,12 @@ class Snake_part(object):
 	def __init__(self,pos,color = (0,255,0)):
 		self.m_x = pos[0]
 		self.m_y = pos[1]
-		self.x = self.m_x * 10
-		self.y = self.m_y * 10
+		self.x = self.m_x * 20
+		self.y = self.m_y * 20
 		self.color = color
 
 	def blit(self,screen):
-		rect = pygame.Rect(self.x,self.y,10,10)
+		rect = pygame.Rect(self.x,self.y,20,20)
 		pygame.draw.rect(screen,self.color,rect)
 
 class Snake(object) :
@@ -17,11 +17,11 @@ class Snake(object) :
 		self.x = 38
 		self.y = 0
 
-		self.lenght = 10
+		self.lenght = 5
 
 		self.tail = []
-		self.time_tick = 40
-		self.speed = 20
+		self.time_tick = 80
+		self.speed = 2
 		self.time = 0
 		self.last_key = None
 		self.h_x = -1
@@ -33,10 +33,11 @@ class Snake(object) :
 		self.is_dead = False
 
 	def restart(self):
-		self.x = 38
+                self.point = 0
+		self.x = 18
 		self.y = 0
 		self.is_dead = False
-		self.lenght = 10
+		self.lenght = 5
 		self.tail = []
 		self.speed = 1
 		self.time = 0
@@ -52,7 +53,7 @@ class Snake(object) :
 		for t in self.tail :
 			if t.m_x == self.x and t.m_y == self.y :
 				self.is_dead = True
-                if self.x < 0 or self.x > 40 or self.y < 0 or self.y > 40 :
+                if self.x < 0 or self.x > 20 or self.y < 0 or self.y > 20 :
                         self.is_dead = True
 
 	def increase_lenght(self,value,point):
@@ -78,7 +79,7 @@ class Snake(object) :
 			self.tail.insert(0,Snake_part((self.x,self.y)))
 			self.x += self.h_x
 			self.y += self.h_y
-			self.head.x,self.head.y = self.x*10,self.y*10
+			self.head.x,self.head.y = self.x*20,self.y*20
 			if len(self.tail) > self.lenght :
 				self.tail.pop(len(self.tail) -1)
 			self.time = 0

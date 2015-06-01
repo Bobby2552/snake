@@ -5,12 +5,12 @@ class Food_piece(object):
 	def __init__(self,pos,color = (255,0,0)):
 		self.m_x = pos[0]
 		self.m_y = pos[1]
-		self.x = self.m_x * 10
-		self.y = self.m_y * 10
+		self.x = self.m_x * 20
+		self.y = self.m_y * 20
 		self.color = color
 
 	def blit(self,screen):
-		rect = pygame.Rect(self.x,self.y,10,10)
+		rect = pygame.Rect(self.x,self.y,20,20)
 		pygame.draw.rect(screen,self.color,rect)
 
 class Food(object):
@@ -21,9 +21,10 @@ class Food(object):
 		self.time_tick = 3000
 
 	def random_pos(self,snake):
+                print "random_pos called."
 		running = True 
 		while running:
-			x,y = random.randint(1,39),random.randint(1,39)
+			x,y = random.randint(1,19),random.randint(1,19)
 			running = False
 			for t in snake.tail :
 				if t.m_x == x and t.m_y == y :
@@ -41,7 +42,7 @@ class Food(object):
 
 	def update(self,dt,screen,snake):
 		self.time += dt
-		if self.time >= self.time_tick or len(self.food) <= 0:
+		if len(self.food) <= 0:
 			self.time = 0
 			x,y = self.random_pos(snake)
 			f_piece = Food_piece((x,y))
@@ -49,6 +50,6 @@ class Food(object):
 
 		for f_piece in self.food :
 			if f_piece.m_x == snake.x and f_piece.m_y == snake.y :
-				snake.increase_lenght(1,5)
+				snake.increase_lenght(1,1)
 				self.food.remove(f_piece)
 			f_piece.blit(screen)
